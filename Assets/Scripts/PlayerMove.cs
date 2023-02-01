@@ -20,5 +20,13 @@ public class PlayerMove : MonoBehaviour
         Vector3 dir = new Vector3(h, v, 0);
 
         transform.position += dir * speed * Time.deltaTime;
+
+        Vector3 position = Camera.main.WorldToViewportPoint(transform.position);
+        if (position.x < 0f) position.x = 0f;
+        if (position.y < 0f) position.y = 0f;
+        if (position.x > 1f) position.x = 1f;
+        if (position.y > 1f) position.y = 1f;
+
+        transform.position = Camera.main.ViewportToWorldPoint(position);
     }
 }
