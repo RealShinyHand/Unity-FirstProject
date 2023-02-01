@@ -40,11 +40,10 @@ public class Enemy : MonoBehaviour
         explosion.transform.position = this.transform.position;
 
 
-        GameObject scoreObject = GameObject.Find("ScoreManager");
-        ScoreManager scoreManager = scoreObject.GetComponent<ScoreManager>();
+        ScoreManager scoreManager = ScoreManager.Instance;
 
         
-        scoreManager.updateSocore();
+        scoreManager.UpdateSocore();
 
 
 
