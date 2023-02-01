@@ -49,6 +49,7 @@ public class ScoreManager : MonoBehaviour
 
     private void updateBestScoreText(int value)
     {
+        bestScore = value;
         bestScoreUi.text = "Best Score : " + value.ToString();
     }
 }

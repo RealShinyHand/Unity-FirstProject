@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed =5;
+    public float speed = 5;
     // Start is called before the first frame update
     Vector3 dir;
     public GameObject explosionFactory;
@@ -13,13 +13,14 @@ public class Enemy : MonoBehaviour
         //  explosionFactory = Resources.Load<GameObject>("JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Explosions/CFXR Explosion Smoke 2 Solo (HDR).prefab");
 
         int value = UnityEngine.Random.Range(0, 10);
-    
-        if(value < 3)
+
+        if (value < 3)
         {
             GameObject target = GameObject.Find("Player");
-            if(target != null) { 
-            dir = target.transform.position - this.transform.position;
-            dir.Normalize();
+            if (target != null)
+            {
+                dir = target.transform.position - this.transform.position;
+                dir.Normalize();
             }
         }
         else
@@ -36,18 +37,27 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject explosion =  Instantiate(explosionFactory);
+        GameObject explosion = Instantiate(explosionFactory);
         explosion.transform.position = this.transform.position;
 
 
         ScoreManager scoreManager = ScoreManager.Instance;
 
-        
+
         scoreManager.UpdateSocore();
 
 
-
-        Destroy(collision.gameObject);
+        Bullet bullet;
+        if (collision.gameObject.TryGetComponent<Bullet>(out bullet))
+        {
+            Debug.Log("에네미 불렛 충돌");
+            PlayerFire.Instance.restoreBullet(collision.gameObject);
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+        }
+        
         Destroy(this.gameObject);
     }
 }
