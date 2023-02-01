@@ -18,11 +18,16 @@ public class DestoryZone : MonoBehaviour
 
     private  void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.name.Contains("Bullet"))
         {
             PlayerFire.Instance.restoreBullet(other.gameObject);
         }
-        Destroy(other.gameObject);
+        else
+        {
+            Destroy(other.gameObject);
+        }
+        
     }
 
 
